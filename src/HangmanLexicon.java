@@ -1,25 +1,38 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
 /*
- * Temporary lexicon list of words.
+ * Hangman Lexicon using words from text file.
  */
 public class HangmanLexicon {
+	
+	private static String filename = "res\\HangmanLexicon.txt";
+	private List<String> wordList;
+	
+	/** HangmanLexicon constructor. */
+	public HangmanLexicon() {
+		wordList = new ArrayList<String>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filename));
+			String word;
+			while ((word = reader.readLine()) != null) {
+				wordList.add(word);
+			}
+			reader.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	/** Returns the number of words in the lexicon. */
 	public int getWordCount() {
-		return 10;
+		System.out.println(System.getProperty("user.dir"));
+		return wordList.size();
 	}
 	/** Returns the word at the specified index. */
 	public String getWord(int index) {
-		switch (index) {
-			case 0: return "BUOY";
-			case 1: return "COMPUTER";
-			case 2: return "CONNOISSEUR";
-			case 3: return "DEHYDRATE";
-			case 4: return "FUZZY";
-			case 5: return "HUBBUB";
-			case 6: return "KEYHOLE";
-			case 7: return "QUAGMIRE";
-			case 8: return "SLITHER";
-			case 9: return "ZIRCON";
-			default: throw new ErrorException("getWord: Illegal index");
-		}
+		return wordList.get(index);
 	}
 }
